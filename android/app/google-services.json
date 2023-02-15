@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "243827342197",
+    "firebase_url": "https://eman-smart-panel-default-rtdb.firebaseio.com",
+    "project_id": "eman-smart-panel",
+    "storage_bucket": "eman-smart-panel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243827342197:android:62955db615d2e96242313c",
+        "android_client_info": {
+          "package_name": "com.example.emanpanel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243827342197-jl7mmtai10lijtflu3eoitm7brj7jncv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4vOGKmVPMBs3m8r6IZCcBpeBfLq_9UW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243827342197-jl7mmtai10lijtflu3eoitm7brj7jncv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
