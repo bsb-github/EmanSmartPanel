@@ -1,3 +1,4 @@
+import 'package:emanpanel/Modals/UserModal.dart';
 import 'package:emanpanel/Screens/StudentScreens/Courses.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -12,6 +13,7 @@ class MainScreenStudent extends StatefulWidget {
 }
 
 class _MainScreenStudentState extends State<MainScreenStudent> {
+  var userData = Users.user.first;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,7 +77,7 @@ class _MainScreenStudentState extends State<MainScreenStudent> {
                             height: 100,
                             width: 100,
                             decoration: BoxDecoration(
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                     image: NetworkImage(
                                       "https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg",
                                     ),
@@ -83,25 +85,25 @@ class _MainScreenStudentState extends State<MainScreenStudent> {
                                 borderRadius: BorderRadius.circular(50)),
                           ),
                           SizedBox(
-                            width: 16,
+                            width: 12,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Bismillah Sharif",
+                                userData.userName,
                                 style: TextStyle(
                                     fontSize: 24, color: Colors.white),
                               ),
                               const SizedBox(
-                                height: 8.0,
+                                height: 4.0,
                               ),
                               Text(
-                                "BCS - 2",
+                                userData.program + " - " + userData.semesterNo,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    fontSize: 24, color: Colors.white),
+                                    fontSize: 16, color: Colors.white),
                               ),
                             ],
                           )

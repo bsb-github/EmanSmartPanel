@@ -1,5 +1,10 @@
+import 'package:emanpanel/Modals/UserModal.dart';
+import 'package:emanpanel/Screens/LoginSelection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -9,6 +14,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  var userData = Users.user.first;
   TextEditingController _idController = TextEditingController();
   TextEditingController _programController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -17,10 +23,10 @@ class _ProfileState extends State<Profile> {
   void initState() {
     // TODO: implement initState
     setState(() {
-      _idController.text = "ESP 1022";
-      _programController.text = "Bachelor of Computer Science";
-      _emailController.text = "esp@emaan.edu.pk";
-      _phoneController.text = "+923124563434";
+      _idController.text = userData.espID;
+      _programController.text = userData.program;
+      _emailController.text = userData.email;
+      _phoneController.text = userData.phoneNumber;
     });
     super.initState();
   }
@@ -48,9 +54,9 @@ class _ProfileState extends State<Profile> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
+                  Container(
+                    height: 35,
+                    width: 35,
                   ),
                   Text(
                     "Profile",
@@ -60,9 +66,18 @@ class _ProfileState extends State<Profile> {
                       color: Colors.white,
                     ),
                   ),
-                  Icon(
-                    FontAwesomeIcons.signOut,
-                    color: Colors.white,
+                  GestureDetector(
+                    onTap: () async {
+                      EasyLoading.show();
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.clear();
+                      EasyLoading.dismiss();
+                      Get.to(LoginSelection());
+                    },
+                    child: Icon(
+                      FontAwesomeIcons.signOut,
+                      color: Colors.white,
+                    ),
                   )
                 ],
               ),
@@ -86,7 +101,7 @@ class _ProfileState extends State<Profile> {
             height: 12,
           ),
           Text(
-            "Bismillah Sharif",
+            userData.userName,
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 24,

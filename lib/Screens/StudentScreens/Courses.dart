@@ -80,39 +80,127 @@ class CoursesScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey, //New
-                          blurRadius: 25.0,
-                          offset: Offset(0, -10))
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                          colors: [
-                            Color(0xff164F93),
-                            Color(0xff091B3E),
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        )),
-                      )
-                    ],
-                  ),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey, //New
+                        blurRadius: 25.0,
+                        offset: Offset(0, -10))
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 70,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(18),
+                              topRight: Radius.circular(18)),
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xff164F93),
+                              Color(0xff091B3E),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            "Course \n Code",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 24.0),
+                          ),
+                          Text(
+                            "Title",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 24.0),
+                          ),
+                          Container(
+                            height: 50,
+                            width: 50,
+                          )
+                        ],
+                      ),
+                    ),
+                    CourseTile(
+                      courseCode: "CSS 101",
+                      courseTitle: "Introduction to ICT",
+                    ),
+                    //   Divider(),
+                    CourseTile(
+                      courseCode: "CSS 1021",
+                      courseTitle: "Programming\nFundamentals",
+                    ),
+                    //   Divider(),
+                    CourseTile(
+                      courseCode: "GED 1021",
+                      courseTitle: "English Composition",
+                    ),
+                    CourseTile(
+                      courseCode: "MTH 1011",
+                      courseTitle: "Calculas & Analytic\nGeometry",
+                    ),
+                    CourseTile(
+                      courseCode: "PHY 1041",
+                      courseTitle: "Applied Physics",
+                    ),
+                    CourseTile(
+                      courseCode: "GED 1032",
+                      courseTitle: "Pakistan Studies",
+                    ),
+                    //   Divider()
+                  ],
                 ),
               ),
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CourseTile extends StatelessWidget {
+  final String courseCode;
+  final String courseTitle;
+
+  const CourseTile({
+    super.key,
+    required this.courseCode,
+    required this.courseTitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      width: double.infinity,
+      decoration: BoxDecoration(color: Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            courseCode,
+            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20.0),
+          ),
+          Text(
+            courseTitle,
+            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20.0),
+          ),
+          Container(
+            height: 30,
+            width: 30,
+          )
+        ],
       ),
     );
   }

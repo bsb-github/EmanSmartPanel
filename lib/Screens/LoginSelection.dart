@@ -1,8 +1,75 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emanpanel/Modals/UserModal.dart';
 import 'package:emanpanel/Screens/StudentHomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginSelection extends StatelessWidget {
+import '../Helpers/PasswordEncrypter.dart';
+
+class LoginSelection extends StatefulWidget {
   const LoginSelection({super.key});
+
+  @override
+  State<LoginSelection> createState() => _LoginSelectionState();
+}
+
+class _LoginSelectionState extends State<LoginSelection> {
+  TextEditingController _espIdController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  PasswordEncrypter encrypter = PasswordEncrypter();
+
+  Future<void> signIn(String espID, String passowrd) async {
+    EasyLoading.show();
+    var data =
+        await FirebaseFirestore.instance.collection("Users").doc(espID).get();
+    var encryptedPassword = encrypter.encrpyt(passowrd);
+    final prefs = await SharedPreferences.getInstance();
+    if (data.exists) {
+      Users.user.add(UserModal.fromSnapshot(data));
+      if (Users.user.first.password == encryptedPassword) {
+        prefs.setString('espID', espID);
+        prefs.setString('password', encryptedPassword);
+        EasyLoading.dismiss();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => StudentHomeScreen(),
+            ));
+      } else {
+        EasyLoading.showError("Incorrect Password");
+        EasyLoading.dismiss();
+        Get.snackbar("Incorrect Password", "Please Enter Correct Password",
+            backgroundColor: Theme.of(context).primaryColor,
+            colorText: Colors.white);
+      }
+    } else {
+      EasyLoading.showError("Incorrect ID");
+      EasyLoading.dismiss();
+      Get.snackbar("Student Doesn't Exist", "Contact Administrator",
+          backgroundColor: Theme.of(context).primaryColor,
+          colorText: Colors.white);
+    }
+  }
+
+  void createUser() async {
+    await FirebaseFirestore.instance.collection("Users").doc("ESP1022").set({
+      "userName": "Bismillah Sharif",
+      "espID": "ESP1022",
+      "password": encrypter.encrpyt("123456"),
+      "semesterNo": "2",
+      "program": "Bachelor of Computer Science",
+      "email": "bsb@esp.edu.pk",
+      "phoneNumber": "03125063336"
+    });
+  }
+
+  @override
+  void initState() {
+    //createUser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +116,7 @@ class LoginSelection extends StatelessWidget {
                         height: 30,
                       ),
                       TextFormField(
+                        controller: _espIdController,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
@@ -76,6 +144,7 @@ class LoginSelection extends StatelessWidget {
                         height: 15,
                       ),
                       TextFormField(
+                        controller: _passwordController,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
@@ -121,10 +190,8 @@ class LoginSelection extends StatelessWidget {
                       Center(
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => StudentHomeScreen()));
+                            signIn(_espIdController.text,
+                                _passwordController.text);
                           },
                           child: Container(
                             height: 60,
