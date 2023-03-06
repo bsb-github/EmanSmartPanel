@@ -25,8 +25,8 @@ class _ProfileState extends State<Profile> {
     setState(() {
       _idController.text = userData.espID;
       _programController.text = userData.program;
-      _emailController.text = userData.email;
-      _phoneController.text = userData.phoneNumber;
+      _emailController.text = "nftcipher@outlook.com";
+      _phoneController.text = "02134567890";
     });
     super.initState();
   }
@@ -101,7 +101,7 @@ class _ProfileState extends State<Profile> {
             height: 12,
           ),
           Text(
-            userData.userName,
+            "Syed Ahsan",
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 24,

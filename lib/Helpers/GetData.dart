@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 class GetData {
   static void getSubjects() async {
     await http
-        .get(Uri.parse("https://emaanpanel.up.railway.app/allSubjects"))
+        .get(
+            Uri.parse("https://emaanpanel.up.railway.app/subjects/allSubjects"))
         .then((value) {
       var data = jsonDecode(value.body);
       for (var i = 0; i < data["result"].length; i++) {
